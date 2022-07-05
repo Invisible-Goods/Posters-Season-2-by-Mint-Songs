@@ -2,13 +2,15 @@
 pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
+import "./metadata/ERC1155OnChainMetadata.sol";
 
-contract Greeter {
+contract Greeter is ERC1155OnChainMetadata {
     string private greeting;
 
-    constructor(string memory _greeting) {
-        console.log("Deploying a Greeter with greeting:", _greeting);
-        greeting = _greeting;
+    function initialize(string memory uri_) external initializer {
+        __ERC1155_init(uri_);
+        console.log("Deploying a Greeter with greeting:", uri_);
+        greeting = uri_;
     }
 
     function greet() public view returns (string memory) {
