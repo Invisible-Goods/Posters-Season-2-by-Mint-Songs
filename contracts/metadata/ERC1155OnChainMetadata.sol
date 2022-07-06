@@ -18,10 +18,10 @@ contract ERC1155OnChainMetadata is ERC1155Upgradeable, OnChainMetadata {
         override(ERC1155Upgradeable)
         returns (string memory)
     {
-        return _createTokenURI(tokenId);
+        return createMetadataPoster(tokenId);
     }
 
     function contractURI() public view virtual returns (string memory) {
-        return _createContractURI();
+        return createMetadataContract();
     }
 }
