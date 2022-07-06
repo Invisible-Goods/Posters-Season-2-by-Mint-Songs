@@ -1,9 +1,9 @@
 const { task } = require("hardhat/config");
 
 task("deploy", "Deploys a contract").setAction(async () => {
-  hre.run("compile");
+  await hre.run("compile");
 
-  const ERC_1155_FACTORY = await hre.ethers.getContractFactory("Greeter");
+  const ERC_1155_FACTORY = await hre.ethers.getContractFactory("PosterFactory");
   const deployment = await hre.upgrades.deployProxy(ERC_1155_FACTORY, ["URI"], {
     initializer: "initialize",
   });
