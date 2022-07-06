@@ -14,7 +14,7 @@ task("upgrade", "upgrade a contract").setAction(async () => {
 
   const contract = await hre.ethers.getContractFactory("PosterFactory");
 
-  const address = "0x0875fDFE230bb8c0DE396ED77F6a9A9884e07482";
+  const address = "0xAB7D3d1a1a16D5178c283256CcA9A8A5474cf8a4";
   implAddress = await upgrades.erc1967.getImplementationAddress(address);
   console.log("Old implementation address:", implAddress);
   await upgrades.upgradeProxy(address, contract);

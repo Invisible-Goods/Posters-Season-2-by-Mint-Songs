@@ -13,6 +13,10 @@ contract PosterFactory is ERC1155OnChainMetadata {
     function initialize(
         string memory name_,
         string memory symbol_,
+        string memory contract_description_,
+        string memory contract_image_,
+        string memory contract_external_link_,
+        uint256 contract_seller_fee_basis_points_,
         address royaltyRecipient_
     ) external initializer {
         __ERC1155_init("");
@@ -20,10 +24,10 @@ contract PosterFactory is ERC1155OnChainMetadata {
         __ERC165_init();
         name = name_;
         symbol = symbol_;
-        contract_description = "Posters (Season 2) by Mint Songs. TODO: work with Dwight / Nathan to get more info here.";
-        contract_image = "ipfs://QmWoaiiNB9NoDfj3q1xhMt6DJSAU8fMsNePuhH8gwbaKND";
-        contract_external_link = "https://mintsongs.com";
-        contract_seller_fee_basis_points = 300;
+        contract_description = contract_description_;
+        contract_image = contract_image_;
+        contract_external_link = contract_external_link_;
+        contract_seller_fee_basis_points = contract_seller_fee_basis_points_;
         contract_fee_recipient = royaltyRecipient_;
     }
 
