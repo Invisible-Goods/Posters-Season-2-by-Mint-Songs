@@ -12,7 +12,7 @@
 
 1. clone repo: `git clone git@github.com:Invisible-Goods/poster-factory.git`
 2. `cd poster-factory`
-3. `npm i`
+3. `yarn`
 4. `npx hardhat deploy --network mumbai`
 
 ## Setting up ENV variables
