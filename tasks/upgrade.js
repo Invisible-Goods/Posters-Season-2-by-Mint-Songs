@@ -3,11 +3,9 @@ const { task } = require("hardhat/config");
 task("upgrade", "upgrade a contract").setAction(async () => {
   await hre.run("compile");
 
-  if (
-    network.name !== "mumbai" &&
-    network.name !== "matic" &&
-    network.name !== "goerli"
-  ) {
+  const supportedChains = ['mumbai', 'matic', 'goerli']
+  
+  if (!supportedChains.includes(network.name)) {
     console.log(`${network.name} not supported.`);
     return;
   }
