@@ -41,7 +41,7 @@ contract PosterFactory is ERC1155OnChainMetadata {
             msg.value >= price,
             string(
                 abi.encodePacked(
-                    "msg.value too low: Posters are not free hoe. pay up. required cost: ",
+                    "msg.value too low. required cost: ",
                     StringsUpgradeable.toString(price),
                     " wei"
                 )
