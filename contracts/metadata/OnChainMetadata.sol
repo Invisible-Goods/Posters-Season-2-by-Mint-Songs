@@ -6,9 +6,6 @@ import "@openzeppelin/contracts-upgradeable/utils/StringsUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/Base64Upgradeable.sol";
 import "./PosterMetadata.sol";
 
-/**
- * @title contract with on-chain metadata,
- */
 abstract contract OnChainMetadata is PosterMetadata {
     // Name of Smart Contract.
     string public name;
