@@ -1,16 +1,19 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
+import "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 import "./metadata/ERC1155OnChainMetadata.sol";
 
-contract PosterFactory is ERC1155OnChainMetadata {
-    using CountersUpgradeable for CountersUpgradeable.Counter;
-
+contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
     // Index of current PosterID.
     CountersUpgradeable.Counter private tokenId;
     // Price to mint 1 poster.
     uint256 public weiPerPoster;
+
+    using CountersUpgradeable for CountersUpgradeable.Counter;
+    using SafeMathUpgradeable for uint256;
 
     function initialize(
         uint256 weiPerPoster_,
@@ -97,4 +100,45 @@ contract PosterFactory is ERC1155OnChainMetadata {
      * @dev Receiving other ERC20 tokens.
      */
     fallback() external payable {}
+
+    /**
+     * @dev See {IERC165-royaltyInfo}.
+     */
+    function royaltyInfo(uint256 _tokenId, uint256 _salePrice)
+        external
+        view
+        override
+        returns (address receiver, uint256 royaltyAmount)
+    {
+        require(poster[_tokenId].count > 0, "Nonexistent token");
+
+        uint256 royaltyPayment = _calcRoyaltyPayment(_salePrice);
+
+        return (poster[_tokenId].royaltyRecipient, royaltyPayment);
+    }
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        virtual
+        override(ERC1155Upgradeable, IERC165Upgradeable)
+        returns (bool)
+    {
+        return
+            interfaceId == type(IERC2981Upgradeable).interfaceId ||
+            super.supportsInterface(interfaceId);
+    }
+
+    /**
+     * @dev Internal function calculate proportion of a fee for a given amount.
+     *      _amount * fee / 100
+     * @param _amount uint256 value to be split.
+     */
+    function _calcRoyaltyPayment(uint256 _amount)
+        internal
+        view
+        returns (uint256)
+    {
+        return _amount.mul(contract_seller_fee_basis_points).div(1000);
+    }
 }
