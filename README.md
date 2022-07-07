@@ -13,6 +13,7 @@
 2. `cd poster-factory`
 3. `yarn` (learn more about [yarn here](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable))
 4. `npx hardhat deploy --network {your-network}`
+5. copy and paste your contract address to your `.env` file as `POSTER_FACTORY_CONTRACT_ADDRESS_{your_network}`.
 
 ## Setting up ENV variables
 
@@ -24,7 +25,6 @@ OPENZEPPELIN_DEFENDER_TEAM_API_KEY=
 OPENZEPPELIN_DEFENDER_TEAM_API_SECRET_KEY=
 TESTNET_PRIVATE_KEY=
 MAINNET_PRIVATE_KEY=
-ETHERSCAN_API_KEY=
 RPC_ETHEREUM=
 RPC_RINKEBY=
 RPC_GOERLI=
@@ -32,4 +32,5 @@ RPC_MATIC=
 RPC_MUMBAI=
 ETHERSCAN_API_KEY=
 POLYGONSCAN_API_KEY=
+POSTER_FACTORY_CONTRACT_ADDRESS_MUMBAI=
 ```
