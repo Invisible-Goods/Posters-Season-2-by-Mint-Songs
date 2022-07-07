@@ -27,24 +27,24 @@ abstract contract OnChainMetadata is PosterMetadata {
 
     /// Generate poster metadata from storage information as base64-json blob
     /// @param tokenId id of token
-    function createMetadataPoster(uint256 tokenId)
+    function getMetadataPoster(uint256 tokenId)
         public
         view
         returns (string memory)
     {
-        bytes memory json = createPosterMetadataJSON(tokenId);
+        bytes memory json = getPosterMetadataJSON(tokenId);
         return encodeMetadataJSON(json);
     }
 
     /// Generate contract metadata from storage information as base64-json blob
-    function createMetadataContract() public view returns (string memory) {
-        bytes memory json = createContractMetadataJSON();
+    function getMetadataContract() public view returns (string memory) {
+        bytes memory json = getContractMetadataJSON();
         return encodeMetadataJSON(json);
     }
 
     /// Function to create the metadata json string for the nft edition
     /// @param tokenId id of token
-    function createPosterMetadataJSON(uint256 tokenId)
+    function getPosterMetadataJSON(uint256 tokenId)
         public
         view
         returns (bytes memory)
@@ -64,7 +64,7 @@ abstract contract OnChainMetadata is PosterMetadata {
     }
 
     /// Function to create the metadata json string for the smart contract
-    function createContractMetadataJSON() public view returns (bytes memory) {
+    function getContractMetadataJSON() public view returns (bytes memory) {
         return
             abi.encodePacked(
                 '{"name": "',
