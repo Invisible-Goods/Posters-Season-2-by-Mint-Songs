@@ -1,21 +1,87 @@
+require("dotenv").config();
 require("@nomiclabs/hardhat-waffle");
-
-// This is a sample Hardhat task. To learn how to create your own go to
-// https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
-
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
-
-// You need to export an object to set up your config
-// Go to https://hardhat.org/config/ to learn more
+require("@nomiclabs/hardhat-ethers");
+require("@openzeppelin/hardhat-upgrades");
+require("@openzeppelin/hardhat-defender");
+require("./tasks/deploy");
+require("./tasks/upgrade");
+require("@nomiclabs/hardhat-etherscan");
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  solidity: "0.8.4",
+  defender: {
+    apiKey: process.env.OPENZEPPELIN_DEFENDER_TEAM_API_KEY,
+    apiSecret: process.env.OPENZEPPELIN_DEFENDER_TEAM_API_SECRET_KEY,
+  },
+  solidity: {
+    compilers: [
+      {
+        version: "0.5.16",
+      },
+      {
+        version: "0.6.2",
+      },
+      {
+        version: "0.6.4",
+      },
+      {
+        version: "0.7.0",
+      },
+      {
+        version: "0.8.0",
+      },
+      {
+        version: "0.8.2",
+      },
+      {
+        version: "0.8.10",
+      },
+    ],
+  },
+  networks: {
+    hardhat: {
+      gasPrice: 225000000000,
+      chainId: 31337,
+      forking: {
+        url: process.env.RPC_ETHEREUM,
+        blockNumber: 14787640,
+      },
+    },
+    mumbai: {
+      url: process.env.RPC_MUMBAI,
+      chainId: 80001,
+      accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
+    },
+    matic: {
+      gasPrice: 50_000_000_000,
+      url: process.env.RPC_MATIC,
+      chaindId: 137,
+      accounts: [`0x${process.env.MAINNET_PRIVATE_KEY}`],
+    },
+    rinkeby: {
+      url: process.env.RPC_RINKEBY,
+      chainId: 4,
+      accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
+    },
+    goerli: {
+      url: process.env.RPC_GOERLI,
+      chainId: 5,
+      accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
+    },
+    mainnet: {
+      url: process.env.RPC_ETHEREUM,
+      chainId: 1,
+      accounts: [`0x${process.env.MAINNET_PRIVATE_KEY}`],
+    },
+  },
+  etherscan: {
+    apiKey: {
+      polygon: process.env.POLYGONSCAN_API_KEY,
+      polygonMumbai: process.env.POLYGONSCAN_API_KEY,
+      mainnet: process.env.ETHERSCAN_API_KEY,
+      rinkeby: process.env.ETHERSCAN_API_KEY,
+    },
+  },
 };
