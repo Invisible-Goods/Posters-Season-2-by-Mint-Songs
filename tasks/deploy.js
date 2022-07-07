@@ -1,4 +1,5 @@
 const { task } = require("hardhat/config");
+require("dotenv").config();
 
 task("deploy", "Deploys a contract").setAction(async () => {
   await hre.run("compile");
@@ -7,13 +8,13 @@ task("deploy", "Deploys a contract").setAction(async () => {
   const deployment = await hre.upgrades.deployProxy(
     ERC_1155_FACTORY,
     [
-      "Posters (Season 2) by Mint Songs",
-      "PS2",
-      "Posters (Season 2) by Mint Songs. TODO: work with Dwight / Nathan to get more info here.",
-      "ipfs://QmWoaiiNB9NoDfj3q1xhMt6DJSAU8fMsNePuhH8gwbaKND",
-      "https://mintsongs.com",
-      300,
-      "0x0CC9F41a5bDc884A95dEfB0b38DED565BB36C7BF", // Mint Songs Multi-Sig (Mumbai)
+      process.env.CONTRACT_NAME,
+      process.env.CONTRACT_SYMBOL,
+      process.env.CONTRACT_DESCRIPTION,
+      process.env.CONTRACT_IMAGE_URI,
+      process.env.CONTRACT_EXTERNAL_URL,
+      process.env.CONTRACT_SELLER_FEE_BASIS_POINTS,
+      process.env.CONTRACT_FEE_RECIPIENT,
     ],
     {
       initializer: "initialize",
