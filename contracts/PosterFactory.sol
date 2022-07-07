@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
 import "./metadata/ERC1155OnChainMetadata.sol";
 
 contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
@@ -106,6 +107,19 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
      */
     function withdraw() external {
         payable(contract_fee_recipient).transfer(address(this).balance);
+    }
+
+    /**
+     * @dev Withdrawing ERC20 token balance.
+     * @param _tokenContract ERC20 contract address.
+     */
+    function withdrawToken(address _tokenContract) external {
+        IERC20Upgradeable tokenContract = IERC20Upgradeable(_tokenContract);
+
+        tokenContract.transfer(
+            contract_fee_recipient,
+            tokenContract.balanceOf(address(this))
+        );
     }
 
     /**
