@@ -12,8 +12,8 @@ require("@nomiclabs/hardhat-etherscan");
  */
 module.exports = {
   defender: {
-    apiKey: process.env.DEFENDER_TEAM_API_KEY,
-    apiSecret: process.env.DEFENDER_TEAM_API_SECRET_KEY,
+    apiKey: process.env.OPENZEPPELIN_DEFENDER_TEAM_API_KEY,
+    apiSecret: process.env.OPENZEPPELIN_DEFENDER_TEAM_API_SECRET_KEY,
   },
   solidity: {
     compilers: [
