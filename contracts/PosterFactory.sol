@@ -9,8 +9,11 @@ contract PosterFactory is ERC1155OnChainMetadata {
 
     // Index of current PosterID.
     CountersUpgradeable.Counter private tokenId;
+    // Price to mint 1 poster.
+    uint256 public weiPerPoster;
 
     function initialize(
+        uint256 weiPerPoster_,
         string memory name_,
         string memory symbol_,
         string memory contract_description_,
@@ -29,6 +32,7 @@ contract PosterFactory is ERC1155OnChainMetadata {
         contract_external_link = contract_external_link_;
         contract_seller_fee_basis_points = contract_seller_fee_basis_points_;
         contract_fee_recipient = royaltyRecipient_;
+        weiPerPoster = weiPerPoster_;
     }
 
     /**
@@ -36,7 +40,7 @@ contract PosterFactory is ERC1155OnChainMetadata {
      * @param _maxSupply amount to supply the first owner
      */
     modifier createPreCheck(uint256 _maxSupply) {
-        uint256 price = 5000000000000 * _maxSupply;
+        uint256 price = weiPerPoster * _maxSupply;
         require(
             msg.value >= price,
             string(

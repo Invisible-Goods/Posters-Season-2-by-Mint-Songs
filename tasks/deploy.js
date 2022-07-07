@@ -8,6 +8,7 @@ task("deploy", "Deploys a contract").setAction(async () => {
   const deployment = await hre.upgrades.deployProxy(
     ERC_1155_FACTORY,
     [
+      process.env.CONTRACT_WEI_PER_POSTER,
       process.env.CONTRACT_NAME,
       process.env.CONTRACT_SYMBOL,
       process.env.CONTRACT_DESCRIPTION,
