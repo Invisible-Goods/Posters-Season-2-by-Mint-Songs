@@ -12,7 +12,7 @@
 1. clone repo: `git clone git@github.com:Invisible-Goods/poster-factory.git`
 2. `cd poster-factory`
 3. `yarn` (learn more about [yarn here](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable))
-4. `npx hardhat deploy --network mumbai`
+4. `npx hardhat deploy --network {your-network}`
 
 ## Setting up ENV variables
 
