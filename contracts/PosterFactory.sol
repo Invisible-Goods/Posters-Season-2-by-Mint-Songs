@@ -102,6 +102,13 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
     fallback() external payable {}
 
     /**
+     * @dev Withdrawing native token balance.
+     */
+    function withdraw() external {
+        payable(contract_fee_recipient).transfer(address(this).balance);
+    }
+
+    /**
      * @dev See {IERC165-royaltyInfo}.
      */
     function royaltyInfo(uint256 _tokenId, uint256 _salePrice)
