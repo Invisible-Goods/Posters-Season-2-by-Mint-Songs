@@ -49,20 +49,6 @@ contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
             poster.uri(1),
             "data:application/json;base64,eyJuYW1lIjogIlN3ZWV0IFBvc3RlciIsICJkZXNjcmlwdGlvbiI6ICJNeSBTd2VldCBQb3N0ZXIiLCAidXJsIjogImlwZnM6Ly9jaWQifQ=="
         );
-    }
-
-    function testRoyaltyInfo() public {
-        poster.createPoster{value: 10000}(
-            "Sweet Poster",
-            "My Sweet Poster",
-            "ipfs://cid",
-            0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38,
-            100
-        );
-        assertEq(
-            poster.uri(1),
-            "data:application/json;base64,eyJuYW1lIjogIlN3ZWV0IFBvc3RlciIsICJkZXNjcmlwdGlvbiI6ICJNeSBTd2VldCBQb3N0ZXIiLCAidXJsIjogImlwZnM6Ly9jaWQifQ=="
-        );
         assertEq(
             poster.uri(2),
             "data:application/json;base64,eyJuYW1lIjogIiIsICJkZXNjcmlwdGlvbiI6ICIiLCAidXJsIjogIiJ9"
