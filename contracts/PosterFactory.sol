@@ -123,7 +123,7 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
             "MintSongs1155: mint non-existing token"
         );
         require(
-            poster[_id].maxSupply > (poster[_id].count + 1),
+            poster[_id].maxSupply >= (poster[_id].count + 1),
             "cannot mint more than max supply"
         );
         _mint(_to, _id, 1, "");
