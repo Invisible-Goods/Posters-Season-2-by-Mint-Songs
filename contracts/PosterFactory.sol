@@ -112,11 +112,10 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
     /**
      * @dev airdrop 1 free poster
      * @param _id Poster ID to claim
-     * @param _to Address of the future owner of the token
      */
-    function claimPoster(uint256 _id, address _to)
+    function claimPoster(uint256 _id)
         external
-        mustNotBeTokenOwner(_id, _to)
+        mustNotBeTokenOwner(_id, _msgSender())
     {
         require(
             poster[_id].count > 0,
@@ -126,7 +125,7 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
             poster[_id].maxSupply >= (poster[_id].count + 1),
             "cannot mint more than max supply"
         );
-        _mint(_to, _id, 1, "");
+        _mint(_msgSender(), _id, 1, "");
         poster[_id].count += 1;
     }
 
