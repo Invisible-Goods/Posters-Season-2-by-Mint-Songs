@@ -59,10 +59,25 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
     }
 
     /**
+     * @dev Checks that the poster is NOT owned by the sender
+     * @param _id uint256 Poster ID to check ownership of
+     * @param _owner address of the poster holder
+     */
+    modifier mustNotBeTokenOwner(uint256 _id, address _owner) {
+        _mustNotBeTokenOwner(_id, _owner);
+        _;
+    }
+
+    function _mustNotBeTokenOwner(uint256 _id, address _owner) private view {
+        require(balanceOf(_owner, _id) == 0, "owner must NOT be a token owner");
+    }
+
+    /**
      * @dev Creates a new Poster.
      * @param _name name of token
      * @param _description description of token
      * @param _imageUri imageUri of token
+     * @param _kind Enum Type - (image / video).
      * @param _royaltyRecipient address of the first recipient of royalty payments
      * @param _maxSupply amount to supply the first owner
      * @return tokenId newly created token ID
@@ -71,6 +86,7 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
         string memory _name,
         string memory _description,
         string memory _imageUri,
+        PosterKind _kind,
         address _royaltyRecipient,
         uint256 _maxSupply
     ) external payable createPreCheck(_maxSupply) returns (uint256) {
@@ -86,10 +102,32 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
             _imageUri,
             initialSupply,
             _maxSupply,
-            _royaltyRecipient
+            _royaltyRecipient,
+            _kind
         );
         poster[id] = newPoster;
         return id;
+    }
+
+    /**
+     * @dev airdrop 1 free poster
+     * @param _id Poster ID to claim
+     * @param _to Address of the future owner of the token
+     */
+    function claimPoster(uint256 _id, address _to)
+        external
+        mustNotBeTokenOwner(_id, _to)
+    {
+        require(
+            poster[_id].count > 0,
+            "MintSongs1155: mint non-existing token"
+        );
+        require(
+            poster[_id].maxSupply > (poster[_id].count + 1),
+            "cannot mint more than max supply"
+        );
+        _mint(_to, _id, 1, "");
+        poster[_id].count += 1;
     }
 
     /**
