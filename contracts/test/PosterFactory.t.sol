@@ -42,6 +42,7 @@ contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
             "Sweet Poster",
             "My Sweet Poster",
             "ipfs://cid",
+            PosterMetadata.PosterKind.IMAGE,
             0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38,
             100
         );
