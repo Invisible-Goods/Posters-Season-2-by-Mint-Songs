@@ -2,18 +2,18 @@
 pragma solidity ^0.8.0;
 
 import "hardhat/console.sol";
-import "../PosterFactory.sol";
+import "../PostersSeason2ByMintSongs.sol";
 import "./libraries/ERC1155/ERC1155Receiver.sol";
 import "./libraries/ds-test/src/test.sol";
 
 contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
-    PosterFactory poster;
+    PostersSeason2ByMintSongs poster;
     string name = "my smart contract";
     string symbol = "wagmi";
     uint256 weiPerPoster = 100;
 
     function setUp() public {
-        poster = new PosterFactory();
+        poster = new PostersSeason2ByMintSongs();
 
         poster.initialize(
             weiPerPoster,
@@ -23,7 +23,8 @@ contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
             "ipfs://cid",
             "https://mintsongs.com",
             300,
-            0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38
+            0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38,
+            0x9399BB24DBB5C4b782C70c2969F58716Ebbd6a3b
         );
     }
 
@@ -42,7 +43,7 @@ contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
             "Sweet Poster",
             "My Sweet Poster",
             "ipfs://cid",
-            PosterMetadata.PosterKind.IMAGE,
+            PosterMetadata.PosterMediaType.IMAGE,
             0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38,
             100
         );

@@ -6,8 +6,13 @@ import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
 import "./metadata/ERC1155OnChainMetadata.sol";
+import "./relayer/BaseRelayRecipient.sol";
 
-contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
+contract PostersSeason2ByMintSongs is
+    ERC1155OnChainMetadata,
+    IERC2981Upgradeable,
+    BaseRelayRecipient
+{
     // Index of current PosterID.
     CountersUpgradeable.Counter private tokenId;
     // Price to mint 1 poster.
@@ -24,11 +29,13 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
         string memory contract_image_,
         string memory contract_external_link_,
         uint256 contract_seller_fee_basis_points_,
-        address royaltyRecipient_
+        address royaltyRecipient_,
+        address _trustedForwarder
     ) external initializer {
         __ERC1155_init("");
         __Context_init();
         __ERC165_init();
+        _setTrustedForwarder(_trustedForwarder);
         name = name_;
         symbol = symbol_;
         contract_description = contract_description_;
@@ -77,7 +84,7 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
      * @param _name name of token
      * @param _description description of token
      * @param _imageUri imageUri of token
-     * @param _kind Enum Type - (image / video).
+     * @param _media_type Enum Type - (image / video).
      * @param _royaltyRecipient address of the first recipient of royalty payments
      * @param _maxSupply amount to supply the first owner
      * @return tokenId newly created token ID
@@ -86,7 +93,7 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
         string memory _name,
         string memory _description,
         string memory _imageUri,
-        PosterKind _kind,
+        PosterMediaType _media_type,
         address _royaltyRecipient,
         uint256 _maxSupply
     ) external payable createPreCheck(_maxSupply) returns (uint256) {
@@ -103,7 +110,7 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
             initialSupply,
             _maxSupply,
             _royaltyRecipient,
-            _kind
+            _media_type
         );
         poster[id] = newPoster;
         return id;
@@ -119,7 +126,7 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
     {
         require(
             poster[_id].count > 0,
-            "MintSongs1155: mint non-existing token"
+            "MintSongs1155: claim non-existing poster"
         );
         require(
             poster[_id].maxSupply >= (poster[_id].count + 1),
@@ -198,5 +205,29 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
         returns (uint256)
     {
         return _amount.mul(contract_seller_fee_basis_points).div(1000);
+    }
+
+    /**
+     * @dev Overrides conflicting _msgSender inheritance.
+     */
+    function _msgSender()
+        internal
+        view
+        override(BaseRelayRecipient, ContextUpgradeable)
+        returns (address ret)
+    {
+        return BaseRelayRecipient._msgSender();
+    }
+
+    /**
+     * @dev Overrides conflicting _msgData inheritance.
+     */
+    function _msgData()
+        internal
+        view
+        override(BaseRelayRecipient, ContextUpgradeable)
+        returns (bytes calldata ret)
+    {
+        return BaseRelayRecipient._msgData();
     }
 }

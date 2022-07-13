@@ -3,7 +3,7 @@
 pragma solidity ^0.8.1;
 
 contract PosterMetadata {
-    enum PosterKind {
+    enum PosterMediaType {
         IMAGE,
         VIDEO
     }
@@ -16,7 +16,7 @@ contract PosterMetadata {
         uint256 count;
         uint256 maxSupply;
         address royaltyRecipient;
-        PosterKind kind;
+        PosterMediaType media_type;
     }
 
     // Mapping of PosterID => Poster.
