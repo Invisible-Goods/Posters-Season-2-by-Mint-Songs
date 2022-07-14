@@ -1,0 +1,336 @@
+{
+  "manifestVersion": "3.2",
+  "admin": {
+    "address": "0x0918938F4D2D0101779be68Db09f0067f961b4f5",
+    "txHash": "0x59ff1db6056e6668819efad1cfd771a086f0c932857368b6934b1fd274a0d08a"
+  },
+  "proxies": [
+    {
+      "address": "0x4A9551d1e5b2C4B6A5bB81115c3f80762A016bA4",
+      "txHash": "0x021cef279c3c091644350b76facbdfd379c3b4c3278cfa46473edc56aa4a8ca5",
+      "kind": "transparent"
+    },
+    {
+      "address": "0x52A2Ee3121165590fA8b9472FB04cE255B4803d3",
+      "txHash": "0x9802620959626b2273bcb7f9fdf5d4d48f77fda186cfbe0ab3bec1944199c7eb",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xfB041A6915E265c11af5180eAb708d70dC033a40",
+      "txHash": "0xba26030dca471a122dcefcbbba17cd8f2ea148f9dea1abe389ca05beae00ab29",
+      "kind": "transparent"
+    },
+    {
+      "address": "0xE44AeC494fDd1f261B1642A4352f0273fa241f84",
+      "txHash": "0x6dd6c82a2d1ddf640302278c7b5db84e579d91b5c896602315a2a65cc6e98ecf",
+      "kind": "transparent"
+    }
+  ],
+  "impls": {
+    "6946cd0c277799bd8b0be69419ee0f98a7b5c765a6fd90277e5c6e1fe642374d": {
+      "address": "0xe5DF9096FB7e0d8f2a3edA3826Ebbe0Fc1834FBE",
+      "txHash": "0xe39d7777458ba86abd50b4eef8922c0dc81dae982708e9f37af570ebc314de34",
+      "layout": {
+        "storage": [
+          {
+            "label": "_initialized",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint8",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:62",
+            "retypedFrom": "bool"
+          },
+          {
+            "label": "_initializing",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool",
+            "contract": "Initializable",
+            "src": "@openzeppelin/contracts-upgradeable/proxy/utils/Initializable.sol:67"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ContextUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/ContextUpgradeable.sol:36"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "51",
+            "type": "t_array(t_uint256)50_storage",
+            "contract": "ERC165Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/utils/introspection/ERC165Upgradeable.sol:41"
+          },
+          {
+            "label": "_balances",
+            "offset": 0,
+            "slot": "101",
+            "type": "t_mapping(t_uint256,t_mapping(t_address,t_uint256))",
+            "contract": "ERC1155Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:25"
+          },
+          {
+            "label": "_operatorApprovals",
+            "offset": 0,
+            "slot": "102",
+            "type": "t_mapping(t_address,t_mapping(t_address,t_bool))",
+            "contract": "ERC1155Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:28"
+          },
+          {
+            "label": "_uri",
+            "offset": 0,
+            "slot": "103",
+            "type": "t_string_storage",
+            "contract": "ERC1155Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:31"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "104",
+            "type": "t_array(t_uint256)47_storage",
+            "contract": "ERC1155Upgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/token/ERC1155/ERC1155Upgradeable.sol:528"
+          },
+          {
+            "label": "poster",
+            "offset": 0,
+            "slot": "151",
+            "type": "t_mapping(t_uint256,t_struct(Poster)3467_storage)",
+            "contract": "PosterMetadata",
+            "src": "contracts/metadata/PosterMetadata.sol:23"
+          },
+          {
+            "label": "name",
+            "offset": 0,
+            "slot": "152",
+            "type": "t_string_storage",
+            "contract": "OnChainMetadata",
+            "src": "contracts/metadata/OnChainMetadata.sol:11"
+          },
+          {
+            "label": "symbol",
+            "offset": 0,
+            "slot": "153",
+            "type": "t_string_storage",
+            "contract": "OnChainMetadata",
+            "src": "contracts/metadata/OnChainMetadata.sol:13"
+          },
+          {
+            "label": "contract_description",
+            "offset": 0,
+            "slot": "154",
+            "type": "t_string_storage",
+            "contract": "OnChainMetadata",
+            "src": "contracts/metadata/OnChainMetadata.sol:15"
+          },
+          {
+            "label": "contract_image",
+            "offset": 0,
+            "slot": "155",
+            "type": "t_string_storage",
+            "contract": "OnChainMetadata",
+            "src": "contracts/metadata/OnChainMetadata.sol:17"
+          },
+          {
+            "label": "contract_external_link",
+            "offset": 0,
+            "slot": "156",
+            "type": "t_string_storage",
+            "contract": "OnChainMetadata",
+            "src": "contracts/metadata/OnChainMetadata.sol:19"
+          },
+          {
+            "label": "contract_seller_fee_basis_points",
+            "offset": 0,
+            "slot": "157",
+            "type": "t_uint256",
+            "contract": "OnChainMetadata",
+            "src": "contracts/metadata/OnChainMetadata.sol:21"
+          },
+          {
+            "label": "contract_fee_recipient",
+            "offset": 0,
+            "slot": "158",
+            "type": "t_address",
+            "contract": "OnChainMetadata",
+            "src": "contracts/metadata/OnChainMetadata.sol:23"
+          },
+          {
+            "label": "_trustedForwarder",
+            "offset": 0,
+            "slot": "159",
+            "type": "t_address",
+            "contract": "BaseRelayRecipient",
+            "src": "contracts/relayer/BaseRelayRecipient.sol:6"
+          },
+          {
+            "label": "_owner",
+            "offset": 0,
+            "slot": "160",
+            "type": "t_address",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:22"
+          },
+          {
+            "label": "__gap",
+            "offset": 0,
+            "slot": "161",
+            "type": "t_array(t_uint256)49_storage",
+            "contract": "OwnableUpgradeable",
+            "src": "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol:94"
+          },
+          {
+            "label": "tokenId",
+            "offset": 0,
+            "slot": "210",
+            "type": "t_struct(Counter)2140_storage",
+            "contract": "PostersSeason2ByMintSongs",
+            "src": "contracts/PostersSeason2ByMintSongs.sol:19"
+          },
+          {
+            "label": "weiPerPoster",
+            "offset": 0,
+            "slot": "211",
+            "type": "t_uint256",
+            "contract": "PostersSeason2ByMintSongs",
+            "src": "contracts/PostersSeason2ByMintSongs.sol:21"
+          }
+        ],
+        "types": {
+          "t_address": {
+            "label": "address",
+            "numberOfBytes": "20"
+          },
+          "t_array(t_uint256)47_storage": {
+            "label": "uint256[47]",
+            "numberOfBytes": "1504"
+          },
+          "t_array(t_uint256)49_storage": {
+            "label": "uint256[49]",
+            "numberOfBytes": "1568"
+          },
+          "t_array(t_uint256)50_storage": {
+            "label": "uint256[50]",
+            "numberOfBytes": "1600"
+          },
+          "t_bool": {
+            "label": "bool",
+            "numberOfBytes": "1"
+          },
+          "t_enum(PosterMediaType)3449": {
+            "label": "enum PosterMetadata.PosterMediaType",
+            "members": [
+              "IMAGE",
+              "VIDEO"
+            ],
+            "numberOfBytes": "1"
+          },
+          "t_mapping(t_address,t_bool)": {
+            "label": "mapping(address => bool)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_mapping(t_address,t_bool))": {
+            "label": "mapping(address => mapping(address => bool))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_address,t_uint256)": {
+            "label": "mapping(address => uint256)",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_mapping(t_address,t_uint256))": {
+            "label": "mapping(uint256 => mapping(address => uint256))",
+            "numberOfBytes": "32"
+          },
+          "t_mapping(t_uint256,t_struct(Poster)3467_storage)": {
+            "label": "mapping(uint256 => struct PosterMetadata.Poster)",
+            "numberOfBytes": "32"
+          },
+          "t_string_storage": {
+            "label": "string",
+            "numberOfBytes": "32"
+          },
+          "t_struct(Counter)2140_storage": {
+            "label": "struct CountersUpgradeable.Counter",
+            "members": [
+              {
+                "label": "_value",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "0"
+              }
+            ],
+            "numberOfBytes": "32"
+          },
+          "t_struct(Poster)3467_storage": {
+            "label": "struct PosterMetadata.Poster",
+            "members": [
+              {
+                "label": "creator",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "0"
+              },
+              {
+                "label": "name",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "1"
+              },
+              {
+                "label": "description",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "2"
+              },
+              {
+                "label": "imageUri",
+                "type": "t_string_storage",
+                "offset": 0,
+                "slot": "3"
+              },
+              {
+                "label": "count",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "4"
+              },
+              {
+                "label": "maxSupply",
+                "type": "t_uint256",
+                "offset": 0,
+                "slot": "5"
+              },
+              {
+                "label": "royaltyRecipient",
+                "type": "t_address",
+                "offset": 0,
+                "slot": "6"
+              },
+              {
+                "label": "media_type",
+                "type": "t_enum(PosterMediaType)3449",
+                "offset": 20,
+                "slot": "6"
+              }
+            ],
+            "numberOfBytes": "224"
+          },
+          "t_uint256": {
+            "label": "uint256",
+            "numberOfBytes": "32"
+          },
+          "t_uint8": {
+            "label": "uint8",
+            "numberOfBytes": "1"
+          }
+        }
+      }
+    }
+  }
+}
