@@ -39,6 +39,7 @@ contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
     }
 
     function testCreatePoster() public {
+        prank(0x1795BD61F0bfE0a3143A1509D07e28862a6C0a44);
         poster.createPoster{value: 10000}(
             "Sweet Poster",
             "My Sweet Poster",
@@ -47,6 +48,19 @@ contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
             0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38,
             100
         );
+        assertEq(
+            poster.uri(1),
+            "data:application/json;base64,eyJuYW1lIjogIlN3ZWV0IFBvc3RlciIsICJkZXNjcmlwdGlvbiI6ICJNeSBTd2VldCBQb3N0ZXIiLCAidXJsIjogImlwZnM6Ly9jaWQifQ=="
+        );
+        assertEq(
+            poster.uri(2),
+            "data:application/json;base64,eyJuYW1lIjogIiIsICJkZXNjcmlwdGlvbiI6ICIiLCAidXJsIjogIiJ9"
+        );
+    }
+
+    function testClaimPoster() public {
+        testCreatePoster();
+        poster.claimPoster(1);
         assertEq(
             poster.uri(1),
             "data:application/json;base64,eyJuYW1lIjogIlN3ZWV0IFBvc3RlciIsICJkZXNjcmlwdGlvbiI6ICJNeSBTd2VldCBQb3N0ZXIiLCAidXJsIjogImlwZnM6Ly9jaWQifQ=="
