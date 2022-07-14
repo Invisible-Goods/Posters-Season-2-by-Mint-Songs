@@ -117,7 +117,7 @@ contract PostersSeason2ByMintSongs is
     }
 
     /**
-     * @dev airdrop 1 free poster
+     * @dev claim 1 free poster
      * @param _id Poster ID to claim
      */
     function claimPoster(uint256 _id)
