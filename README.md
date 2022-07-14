@@ -4,7 +4,7 @@
 
 ## Verified Deployments
 
-- Polygon (MATIC): [0xE44AeC494fDd1f261B1642A4352f0273fa241f84](https://polygonscan.com/address/0xE44AeC494fDd1f261B1642A4352f0273fa241f84).
+- Polygon (MATIC): [0x36a61b5499Fb403f69E4395e0F710d06541b03EF](https://polygonscan.com/address/0x36a61b5499Fb403f69E4395e0F710d06541b03EF).
 - Mumbai Testnet: [0xD6b25a4DEF0E7888e1cf07d09ec83d19eE299927](https://mumbai.polygonscan.com/address/0xD6b25a4DEF0E7888e1cf07d09ec83d19eE299927).
 
 ## Getting Started
