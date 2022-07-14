@@ -1,11 +1,9 @@
 // SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
 import "../PostersSeason2ByMintSongs.sol";
 import "./libraries/ERC1155/ERC1155Receiver.sol";
-import "./libraries/ds-test/src/test.sol";
-import "forge-std/Test.sol";
+import "./libraries/forge-std/src/Test.sol";
 
 contract PosterFactoryInitialize is Test, ERC1155Receiver {
     PostersSeason2ByMintSongs poster;
@@ -40,7 +38,6 @@ contract PosterFactoryInitialize is Test, ERC1155Receiver {
     }
 
     function testCreatePoster() public {
-        vm.prank(0x1795BD61F0bfE0a3143A1509D07e28862a6C0a44);
         poster.createPoster{value: 10000}(
             "Sweet Poster",
             "My Sweet Poster",
@@ -61,14 +58,9 @@ contract PosterFactoryInitialize is Test, ERC1155Receiver {
 
     function testClaimPoster() public {
         testCreatePoster();
+        address claimer = 0x1795BD61F0bfE0a3143A1509D07e28862a6C0a44;
+        vm.prank(claimer);
         poster.claimPoster(1);
-        assertEq(
-            poster.uri(1),
-            "data:application/json;base64,eyJuYW1lIjogIlN3ZWV0IFBvc3RlciIsICJkZXNjcmlwdGlvbiI6ICJNeSBTd2VldCBQb3N0ZXIiLCAidXJsIjogImlwZnM6Ly9jaWQifQ=="
-        );
-        assertEq(
-            poster.uri(2),
-            "data:application/json;base64,eyJuYW1lIjogIiIsICJkZXNjcmlwdGlvbiI6ICIiLCAidXJsIjogIiJ9"
-        );
+        assertEq(poster.balanceOf(claimer, 1), 1);
     }
 }
