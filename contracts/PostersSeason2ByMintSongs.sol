@@ -130,7 +130,7 @@ contract PostersSeason2ByMintSongs is
         );
         require(
             poster[_id].maxSupply >= (poster[_id].count + 1),
-            "cannot mint more than max supply"
+            "cannot claim more than the max supply"
         );
         _mint(_msgSender(), _id, 1, "");
         poster[_id].count += 1;
