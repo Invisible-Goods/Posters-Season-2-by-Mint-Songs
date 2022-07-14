@@ -5,8 +5,9 @@ import "hardhat/console.sol";
 import "../PostersSeason2ByMintSongs.sol";
 import "./libraries/ERC1155/ERC1155Receiver.sol";
 import "./libraries/ds-test/src/test.sol";
+import "forge-std/Test.sol";
 
-contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
+contract PosterFactoryInitialize is Test, ERC1155Receiver {
     PostersSeason2ByMintSongs poster;
     string name = "my smart contract";
     string symbol = "wagmi";
@@ -39,7 +40,7 @@ contract PosterFactoryInitialize is DSTest, ERC1155Receiver {
     }
 
     function testCreatePoster() public {
-        prank(0x1795BD61F0bfE0a3143A1509D07e28862a6C0a44);
+        vm.prank(0x1795BD61F0bfE0a3143A1509D07e28862a6C0a44);
         poster.createPoster{value: 10000}(
             "Sweet Poster",
             "My Sweet Poster",
