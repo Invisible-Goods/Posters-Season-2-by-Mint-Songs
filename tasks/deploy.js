@@ -1,4 +1,8 @@
 const { task } = require("hardhat/config");
+const {
+  getMultisigAddress,
+  getTrustedForwarderAddress,
+} = require("../utils/getContractAddress");
 require("dotenv").config();
 
 task("deploy", "Deploys a contract").setAction(async () => {
@@ -17,8 +21,8 @@ task("deploy", "Deploys a contract").setAction(async () => {
       process.env.CONTRACT_IMAGE_URI,
       process.env.CONTRACT_EXTERNAL_URL,
       process.env.CONTRACT_SELLER_FEE_BASIS_POINTS,
-      process.env.CONTRACT_FEE_RECIPIENT,
-      process.env.TRUSTED_FORWARDER,
+      getMultisigAddress(network),
+      getTrustedForwarderAddress(network),
     ],
     {
       initializer: "initialize",
