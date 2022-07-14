@@ -150,7 +150,9 @@ contract PostersSeason2ByMintSongs is
      * @dev Withdrawing native token balance.
      */
     function withdraw() external {
-        payable(contract_fee_recipient).transfer(address(this).balance);
+        (bool sent, bytes memory data) = payable(contract_fee_recipient).call{
+            value: address(this).balance
+        }("");
     }
 
     /**

@@ -12,15 +12,15 @@ abstract contract OnChainMetadata is PosterMetadata {
     // Symbol of Smart Contract.
     string public symbol;
     // Description of Smart Contract.
-    string contract_description;
+    string public contract_description;
     // Image of Smart Contract.
-    string contract_image;
+    string public contract_image;
     // External Link of Smart Contract.
-    string contract_external_link;
+    string public contract_external_link;
     // Seller Fee Basis Points of Smart Contract.
-    uint256 contract_seller_fee_basis_points;
+    uint256 public contract_seller_fee_basis_points;
     // Fee Recipient of Smart Contract.
-    address contract_fee_recipient;
+    address public contract_fee_recipient;
 
     /// Generate poster metadata from storage information as base64-json blob
     /// @param tokenId id of token
