@@ -5,13 +5,15 @@ import "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./metadata/ERC1155OnChainMetadata.sol";
 import "./relayer/BaseRelayRecipient.sol";
 
 contract PostersSeason2ByMintSongs is
     ERC1155OnChainMetadata,
     IERC2981Upgradeable,
-    BaseRelayRecipient
+    BaseRelayRecipient,
+    OwnableUpgradeable
 {
     // Index of current PosterID.
     CountersUpgradeable.Counter private tokenId;
@@ -36,6 +38,7 @@ contract PostersSeason2ByMintSongs is
         __Context_init();
         __ERC165_init();
         _setTrustedForwarder(_trustedForwarder);
+        __Ownable_init();
         name = name_;
         symbol = symbol_;
         contract_description = contract_description_;
