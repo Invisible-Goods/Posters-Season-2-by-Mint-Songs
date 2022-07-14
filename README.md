@@ -5,7 +5,7 @@
 ## Verified Deployments
 
 - Polygon (MATIC): TBD.
-- Mumbai Testnet: [0xd31448bcfa8d962839eb0bcf23f41e81368ebbeb](https://mumbai.polygonscan.com/address/0xd31448bcfa8d962839eb0bcf23f41e81368ebbeb).
+- Mumbai Testnet: [0x75e481907174572C9e335B0707D681b598881fd3](https://mumbai.polygonscan.com/address/0x75e481907174572C9e335B0707D681b598881fd3).
 
 ## Getting Started
 
