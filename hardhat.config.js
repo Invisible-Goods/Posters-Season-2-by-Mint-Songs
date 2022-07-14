@@ -55,24 +55,9 @@ module.exports = {
       accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
     },
     matic: {
-      gasPrice: 50_000_000_000,
+      gasPrice: 500_000_000_000,
       url: process.env.RPC_MATIC,
       chaindId: 137,
-      accounts: [`0x${process.env.MAINNET_PRIVATE_KEY}`],
-    },
-    rinkeby: {
-      url: process.env.RPC_RINKEBY,
-      chainId: 4,
-      accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
-    },
-    goerli: {
-      url: process.env.RPC_GOERLI,
-      chainId: 5,
-      accounts: [`0x${process.env.TESTNET_PRIVATE_KEY}`],
-    },
-    mainnet: {
-      url: process.env.RPC_ETHEREUM,
-      chainId: 1,
       accounts: [`0x${process.env.MAINNET_PRIVATE_KEY}`],
     },
   },
@@ -80,8 +65,6 @@ module.exports = {
     apiKey: {
       polygon: process.env.POLYGONSCAN_API_KEY,
       polygonMumbai: process.env.POLYGONSCAN_API_KEY,
-      mainnet: process.env.ETHERSCAN_API_KEY,
-      rinkeby: process.env.ETHERSCAN_API_KEY,
     },
   },
 };
