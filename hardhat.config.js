@@ -5,6 +5,7 @@ require("@openzeppelin/hardhat-upgrades");
 require("@openzeppelin/hardhat-defender");
 require("./tasks/deploy");
 require("./tasks/upgrade");
+require("./tasks/propose-upgrade");
 require("@nomiclabs/hardhat-etherscan");
 
 /**
