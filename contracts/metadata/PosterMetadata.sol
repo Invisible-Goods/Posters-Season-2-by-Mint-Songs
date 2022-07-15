@@ -3,6 +3,11 @@
 pragma solidity ^0.8.1;
 
 contract PosterMetadata {
+    enum PosterMediaType {
+        IMAGE,
+        VIDEO
+    }
+
     struct Poster {
         address creator;
         string name;
@@ -11,6 +16,7 @@ contract PosterMetadata {
         uint256 count;
         uint256 maxSupply;
         address royaltyRecipient;
+        PosterMediaType media_type;
     }
 
     // Mapping of PosterID => Poster.

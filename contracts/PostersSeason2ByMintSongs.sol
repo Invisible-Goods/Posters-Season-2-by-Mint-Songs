@@ -5,9 +5,16 @@ import "@openzeppelin/contracts-upgradeable/interfaces/IERC2981Upgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/CountersUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/utils/math/SafeMathUpgradeable.sol";
 import "@openzeppelin/contracts-upgradeable/token/ERC20/IERC20Upgradeable.sol";
+import "@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol";
 import "./metadata/ERC1155OnChainMetadata.sol";
+import "./relayer/BaseRelayRecipient.sol";
 
-contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
+contract PostersSeason2ByMintSongs is
+    ERC1155OnChainMetadata,
+    IERC2981Upgradeable,
+    BaseRelayRecipient,
+    OwnableUpgradeable
+{
     // Index of current PosterID.
     CountersUpgradeable.Counter private tokenId;
     // Price to mint 1 poster.
@@ -24,11 +31,14 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
         string memory contract_image_,
         string memory contract_external_link_,
         uint256 contract_seller_fee_basis_points_,
-        address royaltyRecipient_
+        address royaltyRecipient_,
+        address _trustedForwarder
     ) external initializer {
         __ERC1155_init("");
         __Context_init();
         __ERC165_init();
+        _setTrustedForwarder(_trustedForwarder);
+        __Ownable_init();
         name = name_;
         symbol = symbol_;
         contract_description = contract_description_;
@@ -59,10 +69,25 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
     }
 
     /**
+     * @dev Checks that the poster is NOT owned by the sender
+     * @param _id uint256 Poster ID to check ownership of
+     * @param _owner address of the poster holder
+     */
+    modifier mustNotBeTokenOwner(uint256 _id, address _owner) {
+        _mustNotBeTokenOwner(_id, _owner);
+        _;
+    }
+
+    function _mustNotBeTokenOwner(uint256 _id, address _owner) private view {
+        require(balanceOf(_owner, _id) == 0, "owner must NOT be a token owner");
+    }
+
+    /**
      * @dev Creates a new Poster.
      * @param _name name of token
      * @param _description description of token
      * @param _imageUri imageUri of token
+     * @param _media_type Enum Type - (image / video).
      * @param _royaltyRecipient address of the first recipient of royalty payments
      * @param _maxSupply amount to supply the first owner
      * @return tokenId newly created token ID
@@ -71,6 +96,7 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
         string memory _name,
         string memory _description,
         string memory _imageUri,
+        PosterMediaType _media_type,
         address _royaltyRecipient,
         uint256 _maxSupply
     ) external payable createPreCheck(_maxSupply) returns (uint256) {
@@ -86,10 +112,31 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
             _imageUri,
             initialSupply,
             _maxSupply,
-            _royaltyRecipient
+            _royaltyRecipient,
+            _media_type
         );
         poster[id] = newPoster;
         return id;
+    }
+
+    /**
+     * @dev claim 1 free poster
+     * @param _id Poster ID to claim
+     */
+    function claimPoster(uint256 _id)
+        external
+        mustNotBeTokenOwner(_id, _msgSender())
+    {
+        require(
+            poster[_id].count > 0,
+            "MintSongs1155: claim non-existing poster"
+        );
+        require(
+            poster[_id].maxSupply >= (poster[_id].count + 1),
+            "cannot claim more than the max supply"
+        );
+        _mint(_msgSender(), _id, 1, "");
+        poster[_id].count += 1;
     }
 
     /**
@@ -106,7 +153,9 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
      * @dev Withdrawing native token balance.
      */
     function withdraw() external {
-        payable(contract_fee_recipient).transfer(address(this).balance);
+        (bool sent, bytes memory data) = payable(contract_fee_recipient).call{
+            value: address(this).balance
+        }("");
     }
 
     /**
@@ -161,5 +210,29 @@ contract PosterFactory is ERC1155OnChainMetadata, IERC2981Upgradeable {
         returns (uint256)
     {
         return _amount.mul(contract_seller_fee_basis_points).div(1000);
+    }
+
+    /**
+     * @dev Overrides conflicting _msgSender inheritance.
+     */
+    function _msgSender()
+        internal
+        view
+        override(BaseRelayRecipient, ContextUpgradeable)
+        returns (address ret)
+    {
+        return BaseRelayRecipient._msgSender();
+    }
+
+    /**
+     * @dev Overrides conflicting _msgData inheritance.
+     */
+    function _msgData()
+        internal
+        view
+        override(BaseRelayRecipient, ContextUpgradeable)
+        returns (bytes calldata ret)
+    {
+        return BaseRelayRecipient._msgData();
     }
 }

@@ -1,10 +1,16 @@
 const { task } = require("hardhat/config");
+const {
+  getMultisigAddress,
+  getTrustedForwarderAddress,
+} = require("../utils/getContractAddress");
 require("dotenv").config();
 
 task("deploy", "Deploys a contract").setAction(async () => {
   await hre.run("compile");
 
-  const ERC_1155_FACTORY = await hre.ethers.getContractFactory("PosterFactory");
+  const ERC_1155_FACTORY = await hre.ethers.getContractFactory(
+    "PostersSeason2ByMintSongs"
+  );
   const deployment = await hre.upgrades.deployProxy(
     ERC_1155_FACTORY,
     [
@@ -15,7 +21,8 @@ task("deploy", "Deploys a contract").setAction(async () => {
       process.env.CONTRACT_IMAGE_URI,
       process.env.CONTRACT_EXTERNAL_URL,
       process.env.CONTRACT_SELLER_FEE_BASIS_POINTS,
-      process.env.CONTRACT_FEE_RECIPIENT,
+      getMultisigAddress(network),
+      getTrustedForwarderAddress(network),
     ],
     {
       initializer: "initialize",

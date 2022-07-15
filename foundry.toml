@@ -2,7 +2,7 @@
 src = 'contracts'                                             # the source directory
 test = 'contracts/test'                                       # the test directory
 out = 'artifacts/contracts'                                   # the output directory (for artifacts)
-libs = ['node_modules']                                       # a list of library directories
+libs = ["node_modules", "lib", "lib/forge-std"]
 remappings = []                                               # a list of remappings
 libraries = []                                                # a list of deployed libraries to link against
 cache = true                                                  # whether to cache builds or not
